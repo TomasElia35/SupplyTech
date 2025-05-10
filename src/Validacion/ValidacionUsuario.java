@@ -1,5 +1,6 @@
 package Validacion;
 
+import Excepciones.CredencialesIncorrectasExcepcion;
 import Usuario.Clases.Administrador;
 import Usuario.Clases.Cliente;
 import Usuario.Clases.Usuario;
@@ -38,7 +39,7 @@ public class ValidacionUsuario {
     }
 
 
-    public void validarCredenciales(Scanner sc){
+    public void validarCredenciales (Scanner sc) throws CredencialesIncorrectasExcepcion {
         System.out.println("Ingresar mail");
         String mail = sc.nextLine();
 
@@ -46,6 +47,7 @@ public class ValidacionUsuario {
         String contrasenia = sc.nextLine();
 
         boolean encontrado = false;
+
 
         for(Usuario usuario : usuarios){
             if(usuario.getMail().equalsIgnoreCase(mail) && usuario.getContrasenia().equals(contrasenia)) {
@@ -58,7 +60,7 @@ public class ValidacionUsuario {
             }
         }
         if (!encontrado) {
-            System.out.println("Credenciales inválidas o usuario no encontrado.");
+            throw new CredencialesIncorrectasExcepcion("Credenciales inválidas o usuario no encontrado.");
         }
     }
 }
